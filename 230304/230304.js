@@ -13,20 +13,9 @@ function isPrime(num) {
 function solution(n, k) {
   let answer = 0;
   const converted = n.toString(k);
-  console.log(converted);
-  let num = '';
-  for (let i of converted) {
-    if (i === '0') {
-      const integer = parseInt(num);
-      if (isPrime(integer)) {
-        answer++;
-      }
-      num = '';
-    } else num += i;
-  }
-  const integer = parseInt(num);
-  if (isPrime(integer)) {
-    answer++;
+  const splited = converted.split('0');
+  for (let i of splited) {
+    if (i.length != 0 && isPrime(Number(i))) answer++;
   }
   return answer;
 }
