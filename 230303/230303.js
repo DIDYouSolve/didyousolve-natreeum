@@ -1,24 +1,16 @@
 function solution(number, k) {
-  const answerArr = [];
-  const sorted = number.split('').map((e) => Number(e));
-  const newArr = [...sorted];
-  sorted.sort((a, b) => a - b);
-  const minimums = sorted.splice(0, k);
-  const idx = [];
-  for (let i = 0; i < newArr.length; i++) {
-    if (minimums.includes(newArr[i])) {
-      idx.push(i);
-      minimums.splice(minimums.indexOf(newArr[i]), 1);
+  const stack = [number[0]];
+  for (let i = 1; i < number.length; i++) {
+    while (k != 0 && stack[stack.length - 1] < number[i]) {
+      stack.pop();
+      k--;
     }
+    stack.push(number[i]);
   }
-  for (let i = 0; i < newArr.length; i++) {
-    if (!idx.includes(i)) {
-      answerArr.push(newArr[i]);
-    }
-  }
-  return answerArr.join('');
+  stack.splice(stack.length - k, k);
+  return stack.join('');
 }
 
-const number = '1231234';
-const k = 3;
+const number = '4177252841';
+const k = 4;
 console.log(solution(number, k));
